@@ -1,5 +1,4 @@
 import src.processing
-
 import src.widget
 
 # Маскировка номера карты
@@ -22,7 +21,7 @@ data = [
 ]
 
 # Фильтр по статусу 'CANCELED'
-print(src.processing.filter_by_state(data, 'CANCELED'))
+print(src.processing.filter_by_state(data, "CANCELED"))
 
 # Сортировка по возрастанию
 sorted_asc = src.processing.sort_by_date(data, reverse=False)

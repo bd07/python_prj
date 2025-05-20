@@ -1,11 +1,11 @@
-def filter_by_state(records, state="EXECUTED"):
+def filter_by_state(records: list, state: str = "EXECUTED") -> list:
     """
     Возвращает новый список словарей, у которых ключ 'state' равен указанному значению.
     """
     return [record for record in records if record.get("state") == state]
 
 
-def sort_by_date(records, reverse=True):
+def sort_by_date(records: list, reverse: bool = True) -> list:
     """
     Возвращает новый список словарей, отсортированный по ключу 'date'.
     """
