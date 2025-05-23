@@ -50,14 +50,3 @@ def mask_account_card(info: str) -> str:
 
         masked = src.masks.get_mask_card_number(card_number)
         return f"{card_type} {masked}"
-
-
-print(mask_account_card("Visa Platinum 7000792289606361"))
-
-print(mask_account_card("Maestro 7000792289606361"))
-
-print(mask_account_card("Счет 73654108430135874305"))
-
-# Пример использования функции get_date:
-date_input = "2024-03-11T02:26:18.671407"
-print(get_date(date_input))
