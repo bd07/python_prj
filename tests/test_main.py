@@ -1,22 +1,18 @@
+import pytest
+
 import src.processing
 import src.widget
 
 
 # Маскировка карты, счета
-def test_mask_account_card(card):
-    assert src.widget.mask_account_card("Visa Platinum 7000792289606361") == card
-
-
-def test_mask_account_rs(rs):
-    assert src.widget.mask_account_card("Счет 73654108430135874305") == rs
-
-
-def test_mask_account_zero(zero):
-    assert src.widget.mask_account_card("0") == zero
-
-
-def test_mask_account_empty(zero):
-    assert src.widget.mask_account_card("") == zero
+@pytest.mark.parametrize('card, mask_kard', [
+    ("Visa Platinum 7000792289606361", "Visa Platinum 7000 79** **** 6361"),
+    ("Счет 73654108430135874305", "Счет **4305"),
+    ("", "0"),
+    ("0", "0")
+])
+def test_mask_account_card(card, mask_kard):
+    assert src.widget.mask_account_card(card) == mask_kard
 
 
 # Преобразование дат
