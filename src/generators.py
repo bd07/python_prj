@@ -13,6 +13,18 @@ def filter_by_currency(transactions, currency_code):
                 yield transaction
 
 
+def transaction_descriptions(transactions):
+    """
+    Генератор, который по очереди возвращает описание каждой транзакции.
+
+    :param transactions: список словарей с транзакциями
+    """
+    for transaction in transactions:
+        # Описание хранится в ключе 'description'
+        description = transaction.get('description', 'Нет описания')
+        yield description
+
+
 transactions_1 = [
     {
         "id": 939719570,
@@ -48,7 +60,6 @@ transactions_1 = [
         # Транзакция другого типа валюты
         "id": 123456789,
         "state": "EXECUTED",
-        # ... другие поля ...
         'operationAmount': {
             'amount': '1000',
             'currency': {
@@ -64,3 +75,10 @@ transactions_1 = [
 usd_transactions = filter_by_currency(transactions_1, 'USD')
 for transaction_1 in usd_transactions:
     print(transaction_1)
+
+print("")
+print("")
+
+descriptions = transaction_descriptions(transactions_1)
+for transaction_2 in descriptions:
+    print(transaction_2)
