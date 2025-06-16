@@ -1,40 +1,56 @@
-def filter_by_currency(transactions, currency_code):
+def filter_by_currency(transactions: list, currency_code: str) -> list:
     """
-    принимает список транзакций и нужную валюту, и возвращает итератор,
-    выдающий только те транзакции, у которых валюта совпадает с заданной.
+    принимает список транзакций и нужную валюту, и возвращает
+    только те транзакции, у которых валюта совпадает с заданной.
     """
-    for transaction in transactions:
-        # Проверяем наличие ключа operationAmount и вложенных данных
-        if ('operationAmount' in transaction and
-            'currency' in transaction['operationAmount'] and
-                'code' in transaction['operationAmount']['currency']):
-            # Если код валюты совпадает с заданным, возвращаем транзакцию
-            if transaction['operationAmount']['currency']['code'] == currency_code:
-                yield transaction
+    # Проверка на пустоту и ноль
+    if transactions not in ("", "0"):
+        result = []
+        for transaction in transactions:
+            # Проверяем наличие ключа operationAmount и вложенных данных
+            if ('operationAmount' in transaction and
+                'currency' in transaction['operationAmount'] and
+                    'code' in transaction['operationAmount']['currency']):
+                # Если код валюты совпадает с заданным, добавляем в результат
+                if transaction['operationAmount']['currency']['code'] == currency_code:
+                    result.append(transaction)
+        return result
+    else:
+        return [0]
 
 
-def transaction_descriptions(transactions):
+def transaction_descriptions(transactions: list) -> str:
     """
     Генератор, который по очереди возвращает описание каждой транзакции.
-
-    :param transactions: список словарей с транзакциями
     """
-    for transaction in transactions:
-        # Описание хранится в ключе 'description'
-        description = transaction.get('description', 'Нет описания')
-        yield description
+    # Проверка на пустоту и ноль
+    if transactions not in ("", "0"):
+        result = ""
+        for transaction in transactions:
+            # Описание хранится в ключе 'description'
+            description = transaction.get('description', 'Нет описания')
+            # yield description
+            result += description + ", "
+        return result
+    else:
+        return "0"
 
 
-def card_number_generator(start, end):
+def card_number_generator(start: int, end: int) -> str:
     """
     Генератор номеров банковских карт в формате XXXX XXXX XXXX XXXX.
     """
-    for number in range(start, end + 1):
-        # Форматируем число с ведущими нулями до 16 цифр
-        card_number = f"{number: 016d}"
-        # Разбиваем на группы по 4 цифры
-        formatted_number = ' '.join([card_number[i:i + 4] for i in range(0, 16, 4)])
-        yield formatted_number
+    if end not in ("", "0"):
+        result = ""
+        for number in range(start, end + 1):
+            # Форматируем число с ведущими нулями до 16 цифр
+            card_number = f"{number:016d}"
+            # Разбиваем на группы по 4 цифры
+            formatted_number = ' '.join([card_number[i:i + 4] for i in range(0, 16, 4)])
+            result += formatted_number + ", "
+        return result
+    else:
+        return "0"
 
 
 transactions_1 = [
@@ -84,19 +100,14 @@ transactions_1 = [
 
 
 # Использование функции:
-usd_transactions = filter_by_currency(transactions_1, 'USD')
-for transaction_1 in usd_transactions:
-    print(transaction_1)
+print(filter_by_currency(transactions_1, 'USD'))
 
 print("")
 print("")
 
-descriptions = transaction_descriptions(transactions_1)
-for transaction_2 in descriptions:
-    print(transaction_2)
+print(transaction_descriptions(transactions_1))
 
 print("")
 print("")
 
-for card_number_1 in card_number_generator(1, 8):
-    print(card_number_1)
+print(card_number_generator(1, 5))
