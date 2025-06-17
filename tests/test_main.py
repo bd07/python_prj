@@ -13,19 +13,23 @@ import src.generators
     ("0", "0")
 ])
 def test_mask_account_card(card, mask_kard):
+    """ Проверка функции маскировки номеров счетов и карт"""
     assert src.widget.mask_account_card(card) == mask_kard
 
 
 # Преобразование дат
 def test_get_date(date):
+    """ Проверка функции для преобразования даты"""
     assert src.widget.get_date("2024-03-11T02:26:18.671403") == date
 
 
 def test_get_date_zero(zero):
+    """ Проверка функции для преобразования даты с нулевым значением"""
     assert src.widget.get_date("0") == zero
 
 
 def test_get_date_empty(zero):
+    """ Проверка функции для преобразования даты с пустым значением"""
     assert src.widget.get_date("") == zero
 
 
@@ -45,23 +49,28 @@ data1_empty_zero = [
 
 # Фильтр
 def test_filter_by_state_canceled(answer_8):
+    """ Проверка функции для фильтрации данных"""
     assert src.processing.filter_by_state(data1, "CANCELED") == answer_8
 
 
 def test_filter_by_state_executed(answer_9):
+    """ Проверка функции для фильтрации данных с пустым значением"""
     assert src.processing.filter_by_state(data1, "EXECUTED") == answer_9
 
 
 def test_filter_by_state_zero(answer_10):
+    """ Проверка функции для фильтрации данных с нулевым значением"""
     assert src.processing.filter_by_state(data1_empty_zero, "EXECUTED") == answer_10
 
 
 # Сортировка
 def test_sort_by_date_reverse(answer_11):
+    """ Проверка функции для сортировки данных"""
     assert src.processing.sort_by_date(data1, reverse=False) == answer_11
 
 
 def test_sort_by_date_ss(answer_12):
+    """ Проверка функции для сортировки данных"""
     assert src.processing.sort_by_date(data1) == answer_12
 
 
@@ -180,26 +189,35 @@ answer_13 = (
     ]
 )
 
-answer_14 = "Перевод организации, Перевод со счета на счет, Перевод со счета на счет, Перевод с карты на карту, " \
-            "Перевод организации, "
+answer_14 = [
+    "Перевод организации",
+    "Перевод со счета на счет",
+    "Перевод со счета на счет",
+    "Перевод с карты на карту",
+    "Перевод организации"
+]
 
 
 @pytest.mark.parametrize('transactions_1, currency_code', [
     (transactions, answer_13),
-    ("0", [0]),
-    ("", [0])
+    ("0", []),
+    ("", [])
 ])
 def test_filter_by_currency(transactions_1, currency_code):
-    assert src.generators.filter_by_currency(transactions_1, "RUB") == currency_code
+    """ Проверка функции для фильтрации данных"""
+    result = list(src.generators.filter_by_currency(transactions_1, "RUB"))
+    assert result == currency_code
 
 
 @pytest.mark.parametrize('transactions_1, currency_code', [
     (transactions, answer_14),
-    ("0", "0"),
-    ("", "0")
+    ("0", []),
+    ("", [])
 ])
 def test_transaction_descriptions(transactions_1, currency_code):
-    assert src.generators.transaction_descriptions(transactions_1) == currency_code
+    """ Проверка функции для вывода описания транзакции"""
+    result = list(src.generators.transaction_descriptions(transactions_1))
+    assert result == currency_code
 
 
 @pytest.mark.parametrize('end, currency_code', [
@@ -207,4 +225,5 @@ def test_transaction_descriptions(transactions_1, currency_code):
     (4, "0000 0000 0000 0001, 0000 0000 0000 0002, 0000 0000 0000 0003, 0000 0000 0000 0004, ")
 ])
 def test_card_number_generator(end, currency_code):
+    """ Проверка функции для генерации номеров карт"""
     assert src.generators.card_number_generator(1, end) == currency_code
