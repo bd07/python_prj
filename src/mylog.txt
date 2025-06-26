@@ -1,0 +1,12 @@
+my_function start
+my_function ok
+my_function start
+my_function error: TypeError. Inputs: (1, '1'), {}
+my_function start
+my_function ok
+my_function start
+my_function ok
+my_function start
+my_function ok
+my_function start
+my_function ok
