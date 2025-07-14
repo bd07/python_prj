@@ -1,4 +1,5 @@
 import sys
+from datetime import datetime
 
 
 def log(filename=None):
@@ -11,17 +12,19 @@ def log(filename=None):
                 log_stream = sys.stdout
 
             # Логируем начало выполнения функции
-            print(f"{func.__name__} start", file=log_stream)
+            now = datetime.now()
+            formatted_date_time = now.strftime("%Y-%m-%d %H:%M:%S")
+            print(f"{formatted_date_time} {func.__name__} запущена", file=log_stream)
 
             try:
                 result = func(*args, **kwargs)
                 # Логируем успешное завершение
-                print(f"{func.__name__} ok", file=log_stream)
+                print(f"функция выполнена", file=log_stream)
                 return result
             except Exception as e:
                 # Логируем ошибку и входные параметры
                 error_type = type(e).__name__
-                print(f"{func.__name__} error: {error_type}. Inputs: {args}, {kwargs}", file=log_stream)
+                print(f"у функции ошибка: {error_type} //{args}, {kwargs}", file=log_stream)
                 raise
             finally:
                 if filename:
@@ -29,11 +32,10 @@ def log(filename=None):
         return wrapper
     return decorator
 
-
 # Проверка кода
-@log(filename="mylog.txt")
-def my_function(x, y):
-    return x + y
+# @log(filename="mylog.txt")
+# def my_function1(x, y):
+#    return x + y
 
 
-print(my_function(2, 4))
+# print(my_function1(2, 5))

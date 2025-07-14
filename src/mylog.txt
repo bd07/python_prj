@@ -1,12 +1,10 @@
-my_function start
-my_function ok
-my_function start
-my_function error: TypeError. Inputs: (1, '1'), {}
-my_function start
-my_function ok
-my_function start
-my_function ok
-my_function start
-my_function ok
-my_function start
-my_function ok
+2025-07-15 00:44:37 mask_account_card запущена
+функция выполнена
+2025-07-15 00:44:37 mask_account_card запущена
+функция выполнена
+2025-07-15 00:44:37 get_date запущена
+функция выполнена
+2025-07-15 00:44:37 filter_by_state запущена
+функция выполнена
+2025-07-15 00:44:37 sort_by_date запущена
+функция выполнена

@@ -1,8 +1,10 @@
 from datetime import datetime
 
 import src.masks
+from src.decorators import log
 
 
+@log(filename="mylog.txt")
 def get_date(date_str: str) -> str:
     """
     Преобразует формат даты в более читаемый
@@ -17,6 +19,7 @@ def get_date(date_str: str) -> str:
         return "0"
 
 
+@log(filename="mylog.txt")
 def mask_account_card(info: str) -> str:
     """
     Обрабатывает строку с типом и номером карты или счета.

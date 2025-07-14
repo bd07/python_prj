@@ -3,6 +3,7 @@ import pytest
 import src.processing
 import src.widget
 import src.generators
+import src.decorators
 
 
 # Маскировка карты, счета
@@ -227,3 +228,12 @@ def test_transaction_descriptions(transactions_1, currency_code):
 def test_card_number_generator(end, currency_code):
     """ Проверка функции для генерации номеров карт"""
     assert src.generators.card_number_generator(1, end) == currency_code
+
+
+def example_function():
+    raise Exception("Max retries exceeded")
+
+
+def test_my_function():
+    with pytest.raises(Exception, match="Max retries exceeded"):
+        example_function()
