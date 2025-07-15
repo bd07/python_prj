@@ -1,3 +1,7 @@
+from src.decorators import log
+
+
+@log(filename="mylog.txt")
 def filter_by_state(records: list, state: str = "EXECUTED") -> list:
     """
     Возвращает новый список словарей, у которых ключ 'state' равен указанному значению.
@@ -5,6 +9,7 @@ def filter_by_state(records: list, state: str = "EXECUTED") -> list:
     return [record for record in records if record.get("state") == state]
 
 
+@log(filename="mylog.txt")
 def sort_by_date(records: list, reverse: bool = True) -> list:
     """
     Возвращает новый список словарей, отсортированный по ключу 'date'.
