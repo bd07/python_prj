@@ -7,7 +7,7 @@ def log(filename=None):
         def wrapper(*args, **kwargs):
             # Открываем лог-файл или используем stdout
             if filename:
-                log_stream = open(filename, 'a', encoding='utf-8')
+                log_stream = open(filename, "a", encoding="utf-8")
             else:
                 log_stream = sys.stdout
 
@@ -19,7 +19,7 @@ def log(filename=None):
             try:
                 result = func(*args, **kwargs)
                 # Логируем успешное завершение
-                print(f"функция выполнена", file=log_stream)
+                print("функция выполнена", file=log_stream)
                 return result
             except Exception as e:
                 # Логируем ошибку и входные параметры
@@ -29,13 +29,7 @@ def log(filename=None):
             finally:
                 if filename:
                     log_stream.close()
+
         return wrapper
+
     return decorator
-
-# Проверка кода
-# @log(filename="mylog.txt")
-# def my_function1(x, y):
-#    return x + y
-
-
-# print(my_function1(2, 5))

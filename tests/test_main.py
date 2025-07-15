@@ -3,7 +3,7 @@ import pytest
 import src.processing
 import src.widget
 import src.generators
-import src.decorators
+from src.decorators import log
 
 
 # Маскировка карты, счета
@@ -230,10 +230,11 @@ def test_card_number_generator(end, currency_code):
     assert src.generators.card_number_generator(1, end) == currency_code
 
 
-def example_function():
-    raise Exception("Max retries exceeded")
+def test_log():
+    """ Проверка декоратора для логирования в файл и терминал"""
+    @log(filename="mylog.txt")
+    def add_numbers(a, b):
+        return a + b
 
-
-def test_my_function():
-    with pytest.raises(Exception, match="Max retries exceeded"):
-        example_function()
+    result = add_numbers(3, 5)
+    assert result == 8
